@@ -1,10 +1,11 @@
 # week-01-day-5-speed-racers
 
 <h1>Web Development Immersive 7 - Week 1 Project</h1>
+<a href="https://git.generalassemb.ly/wdi-wc-march2018/JS-Racer">Original Assignment</a>
 
 <h2>Speed Racers</h2>
 
-<p></p>
+<p>Browser game, synthesizing all the knowledge you've packed into your brain over the past week! You'll be leveraging the power of JavaScript to create a Racing Game, where two players can move their "cars" across the browser to compete for the win.</p>
 
 <h3>Skills Utilized:</h3
 
