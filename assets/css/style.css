@@ -52,8 +52,10 @@ main, #raceway {
 	width: 5rem;
 	border-left: 1px solid #fff;
 	font-weight: 900;
-	line-height: 5rem;
+	line-height: 2rem;
 	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: .15rem;
 	writing-mode: vertical-rl;
   text-orientation: sideways;
 	transform: rotate(180deg);
@@ -75,4 +77,19 @@ main, #raceway {
 
 .finish-white {
 	background: #fff;
+}
+
+#racer1, #racer2 {
+	position: absolute;
+	top: 1rem;
+	left: 2rem;
+	z-index: 2;
+	width: 3rem;
+	height: 1rem;
+	background: #f00;
+}
+
+#racer2 {
+	top: 3rem;
+	background: #00f;
 }
