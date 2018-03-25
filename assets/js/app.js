@@ -11,6 +11,10 @@
 // for the win.
 //
 
+// global variable(s)
+const intFinishLine = 672;
+
+
 // put a cool checker board pattern behind title
 const checkerBoardTitle = (eleContainer) => {
 	// get title text from page
@@ -35,28 +39,91 @@ const checkerBoardTitle = (eleContainer) => {
 }
 checkerBoardTitle('h1')
 
-// put a cool checker board pattern on
+
+// put a cool checker board pattern on the finish line
 const checkerBoardFinish = (element) => {
 
-	// determine the rem of site and size of the container by getting w * h
+	// determine the rem of element and size of the container by getting w * h
 	let eleContainer = document.getElementById(element);
 	let intRemSize = Number(window.getComputedStyle(eleContainer).getPropertyValue('font-size').slice(0,-2));
 
 	let intContainerSize = Number(window.getComputedStyle(eleContainer).getPropertyValue('width').slice(0,-2)) * Number(window.getComputedStyle(eleContainer).getPropertyValue('height').slice(0,-2));
-
-	console.log(element + " " + eleContainer.innerHTML + " " + intRemSize + " " + intContainerSize);
 
 	// create boxes of alternating colors based on the sites rem squared
 	for (let i = 0; i < intContainerSize / Math.pow(intRemSize,2); i++) {
 		if (i%2 === 0) {
 			eleContainer.innerHTML += `<span class="finish-black"></span>`;
 		} else {
-			eleContainer.innerHTML += `<span class="finish-white"></span>`;	
+			eleContainer.innerHTML += `<span class="finish-white"></span>`;
 		}
 	}
-
-	console.log( + ' ' + eleContainer.innerHTML);
-
 	return;
 }
 checkerBoardFinish('finish-line')
+
+
+// check to see if someone has won
+const checkForWinner = (ele) => {
+
+	// check the racer's ID
+	let intRacerNewPosition = Number(getComputedStyle(ele).getPropertyValue('left').slice(0,-2)),
+			strWinningMessage = 'Congratulations';
+
+	// check to see if a racer is at the finish inline
+	if (intRacerNewPosition === intFinishLine) {
+		if (ele.id === 'racer1') {
+			strWinningMessage += " Red Racer"
+		} else {
+			strWinningMessage += " Blue Racer"
+		}
+		return console.log(strWinningMessage);
+	}
+}
+
+
+// move the raceers
+const moveRacer = (keyPressed) => {
+	let eleRacer;
+
+	// check for which key was pressed
+	if (keyPressed === '>') {
+		// get appropriate racer and its position
+		eleRacer = document.getElementById('racer1')
+	} else if (keyPressed === 'D') {
+		eleRacer = document.getElementById('racer2')
+	}
+
+	// // get racer's position
+	// let intRacerPosition = Number(getComputedStyle(eleRacer).getPropertyValue('left').slice(0,-2));
+	//
+	// // make sure racer stops after winning
+	// if (intRacerPosition !== intFinishLine+64) {
+	// 	// move racer
+	// 	eleRacer.style.left = `${(intRacerPosition += 16)/16}rem`;
+	// }
+
+	console.log(eleRacer);
+
+	return checkForWinner(eleRacer);
+}
+
+
+function contentLoaded () {
+  var chars = [],
+  container = document.getElementById('container');
+
+  window.addEventListener('keypress', function (e) {
+	  if (e.keyCode !== 13) {
+	    chars.push(e.key);
+	  }
+	}, false);
+
+  window.addEventListener('keyup', function (e) {
+    if (e.keyCode === 13) {
+      container.textContent = chars.join('');
+  		chars = [];
+
+  }, false);
+}
+
+window.addEventListener('DOMContentLoaded', contentLoaded, false);
