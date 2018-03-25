@@ -76,7 +76,7 @@ const checkForWinner = (ele) => {
 		} else {
 			strWinningMessage += " Blue Racer"
 		}
-		return console.log(strWinningMessage);
+		return document.getElementById('message').textContent = strWinningMessage;
 	}
 }
 
@@ -93,37 +93,27 @@ const moveRacer = (keyPressed) => {
 		eleRacer = document.getElementById('racer2')
 	}
 
-	// // get racer's position
-	// let intRacerPosition = Number(getComputedStyle(eleRacer).getPropertyValue('left').slice(0,-2));
-	//
-	// // make sure racer stops after winning
-	// if (intRacerPosition !== intFinishLine+64) {
-	// 	// move racer
-	// 	eleRacer.style.left = `${(intRacerPosition += 16)/16}rem`;
-	// }
+	// get racer's position
+	let intRacerPosition = Number(getComputedStyle(eleRacer).getPropertyValue('left').slice(0,-2));
 
-	console.log(eleRacer);
+	// make sure racer stops after winning
+	if (intRacerPosition !== intFinishLine+64) {
+		// move racer
+		eleRacer.style.left = `${(intRacerPosition += 16)/16}rem`;
+	}
 
 	return checkForWinner(eleRacer);
 }
 
 
-function contentLoaded () {
-  var chars = [],
-  container = document.getElementById('container');
-
-  window.addEventListener('keypress', function (e) {
-	  if (e.keyCode !== 13) {
-	    chars.push(e.key);
-	  }
-	}, false);
-
+function keyCapture () {
   window.addEventListener('keyup', function (e) {
-    if (e.keyCode === 13) {
-      container.textContent = chars.join('');
-  		chars = [];
-
+    if (e.keyCode === 68) {
+      moveRacer('D');
+		} else if (e.keyCode === 39) {
+			moveRacer('>');
+		}
   }, false);
 }
 
-window.addEventListener('DOMContentLoaded', contentLoaded, false);
+window.addEventListener('DOMContentLoaded', keyCapture, false);

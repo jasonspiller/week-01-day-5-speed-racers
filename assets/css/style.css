@@ -93,3 +93,9 @@ main, #raceway {
 	top: 3rem;
 	background: #00f;
 }
+
+#message {
+	clear: both;
+	padding: 2rem;
+	text-align: center;
+}
