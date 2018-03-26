@@ -13,6 +13,9 @@
 
 // global variable(s)
 const intFinishLine = 672;
+let bolRaceWon = false,
+		intRacer1Wins = 0,
+		intRacer2Wins = 0;
 
 
 // put a cool checker board pattern behind title
@@ -72,11 +75,21 @@ const checkForWinner = (ele) => {
 	// check to see if a racer is at the finish inline
 	if (intRacerNewPosition === intFinishLine) {
 		if (ele.id === 'racer1') {
-			strWinningMessage += " Red Racer"
+			strWinningMessage += " Red Racer!";
+			intRacer1Wins += 1;
 		} else {
-			strWinningMessage += " Blue Racer"
+			strWinningMessage += " Blue Racer!";
+			intRacer2Wins += 1;
 		}
-		return document.getElementById('message').textContent = strWinningMessage;
+
+		// mark race as won, show race again button, display message and update totals
+		bolRaceWon = true;
+		document.getElementsByTagName('button')[0].style.visibility = 'visible';
+		document.getElementById('message').textContent = strWinningMessage;
+		document.getElementById('racer1wins').childNodes[1].textContent = intRacer1Wins;
+		document.getElementById('racer2wins').childNodes[1].textContent = intRacer2Wins;
+
+		return
 	}
 }
 
@@ -86,34 +99,44 @@ const moveRacer = (keyPressed) => {
 	let eleRacer;
 
 	// check for which key was pressed
-	if (keyPressed === '>') {
-		// get appropriate racer and its position
+	if (keyPressed === 68) {
 		eleRacer = document.getElementById('racer1')
-	} else if (keyPressed === 'D') {
+	} else if (keyPressed === 39) {
 		eleRacer = document.getElementById('racer2')
 	}
 
-	// get racer's position
-	let intRacerPosition = Number(getComputedStyle(eleRacer).getPropertyValue('left').slice(0,-2));
+	// make sure the key pressed was valid
+	if (eleRacer) {
 
-	// make sure racer stops after winning
-	if (intRacerPosition !== intFinishLine+64) {
-		// move racer
-		eleRacer.style.left = `${(intRacerPosition += 16)/16}rem`;
-	}
+		// get racer's position
+		let intRacerPosition = Number(getComputedStyle(eleRacer).getPropertyValue('left').slice(0,-2));
 
-	return checkForWinner(eleRacer);
-}
-
-
-function keyCapture () {
-  window.addEventListener('keyup', function (e) {
-    if (e.keyCode === 68) {
-      moveRacer('D');
-		} else if (e.keyCode === 39) {
-			moveRacer('>');
+		// make sure racer stops after winning
+		if ((intRacerPosition !== intFinishLine) && !bolRaceWon) {
+			// move racer
+			eleRacer.style.left = `${(intRacerPosition += 16)/16}rem`;
+			checkForWinner(eleRacer);
 		}
-  }, false);
+
+		return;
+	}
 }
 
-window.addEventListener('DOMContentLoaded', keyCapture, false);
+
+// reset game to race again
+const raceAgain = () => {
+	bolRaceWon = false;
+	document.getElementById('message').textContent = '';
+	document.getElementsByTagName('button')[0].style.visibility = 'hidden';
+	document.getElementById('racer1').style.left = '2rem';
+	document.getElementById('racer2').style.left = '2rem';
+};
+
+
+// capture keypress and call move function
+const keyCapture = () => {
+  window.addEventListener('keyup', function (e) {
+    moveRacer(e.keyCode);
+  });
+}
+keyCapture();

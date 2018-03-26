@@ -35,9 +35,9 @@
 <h3>Bonus</h3>
 
 <ul>
-	<li>Let the user know if player one or player two won!</li>
-	<li>Keep track of <strong>multiple game rounds</strong> with a win counter.</li>
-	<li>Make it look amazing!</li>
+	<li><s>Let the user know if player one or player two won!</s></li>
+	<li><s>Keep track of <strong>multiple game rounds</strong> with a win counter.</s></li>
+	<li><s>Make it look amazing!</s></li>
 	<li>Allow <strong>customized players</strong> (name, symbol, color, avatar, etc.).</li>
 	<li>Use <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a> to <strong>keep track of game state</strong>, even if the user refreshes the page.</li>
 	<li>Get creative with <strong>inventive styling</strong>, e.g. use hover effects or animations to spiff things up. Get creative with backgrounds.</li>

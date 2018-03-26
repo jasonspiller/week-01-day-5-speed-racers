@@ -32,7 +32,7 @@ a {
 	color: #000;
 }
 
-main, #raceway {
+main, footer, #raceway {
 	position: relative;
 	width: 50rem;
 	height: 5rem;
@@ -96,6 +96,47 @@ main, #raceway {
 
 #message {
 	clear: both;
-	padding: 2rem;
+	height: 4rem;
+	padding: 1rem;
+	font-size: 2rem;
+	font-weight: 900;
+	letter-spacing: .5rem;
+	text-transform: uppercase;
 	text-align: center;
+}
+
+footer {
+	clear: both;
+	border: 0;
+	padding: 1rem;
+	text-align: center;
+}
+
+#racer1wins, #racer2wins, #playAgain {
+	width: 33%;
+	float: left;
+	text-align: center;
+	font-weight: 900;
+}
+
+#racer2wins {
+	float: right;
+}
+
+#racer1wins p, #racer2wins p {
+	font-size: 2rem;
+	margin: .5rem 0;
+}
+
+button {
+	display: block;
+	float: none;
+	visibility: hidden;
+  cursor: pointer;
+	margin: 1rem auto;
+  border: none;
+	padding: 1rem;
+  background: #0f0;
+  color: #000;
+	font-weight: 900;
 }
