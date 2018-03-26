@@ -13,7 +13,8 @@
 
 // global variable(s)
 const intFinishLine = 672;
-let bolRaceWon = false,
+let eleMessage = document.getElementById('message'),
+		bolRaceWon = false,
 		intRacer1Wins = 0,
 		intRacer2Wins = 0;
 
@@ -65,6 +66,14 @@ const checkerBoardFinish = (element) => {
 checkerBoardFinish('finish-line')
 
 
+// capture keypress and call move function
+const keyCapture = () => {
+  window.addEventListener('keyup', function (e) {
+    moveRacer(e.keyCode);
+  });
+}
+
+
 // check to see if someone has won
 const checkForWinner = (ele) => {
 
@@ -77,19 +86,20 @@ const checkForWinner = (ele) => {
 		if (ele.id === 'racer1') {
 			strWinningMessage += " Red Racer!";
 			intRacer1Wins += 1;
+			document.getElementById('racer1wins').childNodes[1].textContent = intRacer1Wins;
 		} else {
 			strWinningMessage += " Blue Racer!";
 			intRacer2Wins += 1;
+			document.getElementById('racer2wins').childNodes[1].textContent = intRacer2Wins;
 		}
 
 		// mark race as won, show race again button, display message and update totals
 		bolRaceWon = true;
-		document.getElementsByTagName('button')[0].style.visibility = 'visible';
-		document.getElementById('message').textContent = strWinningMessage;
-		document.getElementById('racer1wins').childNodes[1].textContent = intRacer1Wins;
-		document.getElementById('racer2wins').childNodes[1].textContent = intRacer2Wins;
+		eleMessage.textContent = strWinningMessage;
+		document.getElementsByTagName('button')[0].textContent = 'Race Again?';
+		document.getElementsByTagName('button')[0].onclick = 'raceAgain()';
 
-		return
+		return;
 	}
 }
 
@@ -123,20 +133,34 @@ const moveRacer = (keyPressed) => {
 }
 
 
+// display a countdown
+const countdown = () => {
+	let arrCountdown = ['Ready', 'Set', 'Go!'],
+			i = 0;
+
+	// display a new part of the message
+	let strCountdown = setInterval(function(){
+
+		eleMessage.textContent = arrCountdown[i];
+		i++;
+
+		// check if entire message has been display
+		if (i === arrCountdown.length) {
+			// activate the key input
+			keyCapture();
+
+			clearInterval(strCountdown);
+		}
+	}, 1000);
+}
+
 // reset game to race again
 const raceAgain = () => {
 	bolRaceWon = false;
-	document.getElementById('message').textContent = '';
-	document.getElementsByTagName('button')[0].style.visibility = 'hidden';
+	eleMessage.textContent = '';
 	document.getElementById('racer1').style.left = '2rem';
 	document.getElementById('racer2').style.left = '2rem';
+
+	// call countDown
+	countdown();
 };
-
-
-// capture keypress and call move function
-const keyCapture = () => {
-  window.addEventListener('keyup', function (e) {
-    moveRacer(e.keyCode);
-  });
-}
-keyCapture();

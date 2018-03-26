@@ -131,7 +131,6 @@ footer {
 button {
 	display: block;
 	float: none;
-	visibility: hidden;
   cursor: pointer;
 	margin: 1rem auto;
   border: none;
